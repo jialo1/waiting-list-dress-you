@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 
 const phoneScreens = [
@@ -10,10 +11,25 @@ const phoneScreens = [
   { src: "/images/4.png", alt: "DressYou - Connexion" },
 ];
 
+const fadeUp = {
+  hidden: { opacity: 0, y: 30 },
+  visible: (i: number) => ({
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.7,
+      delay: i * 0.12,
+      ease: [0.16, 1, 0.3, 1],
+    },
+  }),
+};
+
 function PhoneCarousel() {
   const [current, setCurrent] = useState(0);
+  const [direction, setDirection] = useState(1);
 
   const next = useCallback(() => {
+    setDirection(1);
     setCurrent((prev) => (prev + 1) % phoneScreens.length);
   }, []);
 
@@ -22,47 +38,79 @@ function PhoneCarousel() {
     return () => clearInterval(timer);
   }, [next]);
 
+  function goTo(i: number) {
+    setDirection(i > current ? 1 : -1);
+    setCurrent(i);
+  }
+
+  const slideVariants = {
+    enter: (dir: number) => ({
+      opacity: 0,
+      scale: 0.92,
+      x: dir > 0 ? 40 : -40,
+    }),
+    center: {
+      opacity: 1,
+      scale: 1,
+      x: 0,
+      transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] },
+    },
+    exit: (dir: number) => ({
+      opacity: 0,
+      scale: 0.92,
+      x: dir > 0 ? -40 : 40,
+      transition: { duration: 0.4, ease: "easeInOut" },
+    }),
+  };
+
   return (
-    <div className="relative w-[260px] md:w-[300px] animate-scale-in">
+    <motion.div
+      initial={{ opacity: 0, scale: 0.9 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+      className="relative w-[260px] md:w-[300px]"
+    >
       <div className="relative aspect-[9/19.5] overflow-hidden rounded-[2px]">
-        {phoneScreens.map((screen, i) => (
-          <div
-            key={screen.src}
-            className="absolute inset-0 transition-all duration-700 ease-in-out"
-            style={{
-              opacity: i === current ? 1 : 0,
-              transform: i === current ? "scale(1)" : "scale(0.95)",
-            }}
+        <AnimatePresence mode="wait" custom={direction}>
+          <motion.div
+            key={current}
+            custom={direction}
+            variants={slideVariants}
+            initial="enter"
+            animate="center"
+            exit="exit"
+            className="absolute inset-0"
           >
             <Image
-              src={screen.src}
-              alt={screen.alt}
+              src={phoneScreens[current].src}
+              alt={phoneScreens[current].alt}
               fill
               className="object-contain"
-              priority={i === 0}
+              priority={current === 0}
             />
-          </div>
-        ))}
+          </motion.div>
+        </AnimatePresence>
       </div>
 
       {/* Dots indicator */}
       <div className="flex justify-center gap-2 mt-6">
         {phoneScreens.map((_, i) => (
-          <button
+          <motion.button
             key={i}
-            onClick={() => setCurrent(i)}
-            className={`rounded-full transition-all duration-300 cursor-pointer ${
-              i === current
-                ? "w-6 h-2 bg-sage"
-                : "w-2 h-2 bg-stone/30 hover:bg-stone/50"
-            }`}
+            onClick={() => goTo(i)}
+            animate={{
+              width: i === current ? 24 : 8,
+              backgroundColor: i === current ? "var(--color-sage)" : "rgba(181,177,164,0.3)",
+            }}
+            transition={{ duration: 0.3, ease: "easeOut" }}
+            className="h-2 rounded-full cursor-pointer"
           />
         ))}
       </div>
 
-      {/* Glow effect behind phone */}
+      {/* Glow effect */}
       <div className="absolute -inset-10 bg-sage/8 rounded-full blur-3xl -z-10" />
-    </div>
+    </motion.div>
   );
 }
 
@@ -102,8 +150,18 @@ export default function Hero() {
   return (
     <section className="relative min-h-screen bg-dark overflow-hidden pt-16">
       {/* Decorative gradient orbs */}
-      <div className="absolute top-20 -left-40 w-[500px] h-[500px] bg-sage/8 rounded-full blur-[120px]" />
-      <div className="absolute bottom-20 -right-40 w-[400px] h-[400px] bg-stone/10 rounded-full blur-[120px]" />
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1.5 }}
+        className="absolute top-20 -left-40 w-[500px] h-[500px] bg-sage/8 rounded-full blur-[120px]"
+      />
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1.5, delay: 0.3 }}
+        className="absolute bottom-20 -right-40 w-[400px] h-[400px] bg-stone/10 rounded-full blur-[120px]"
+      />
 
       <div className="relative z-10 max-w-6xl mx-auto px-6 min-h-[calc(100vh-4rem)] flex items-center">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-12 items-center w-full py-16">
@@ -115,92 +173,135 @@ export default function Hero() {
           {/* Right: Content */}
           <div className="text-center lg:text-left order-1 lg:order-2">
             {/* Badge */}
-            <div className="animate-fade-up">
+            <motion.div custom={0} variants={fadeUp} initial="hidden" animate="visible">
               <span className="inline-block text-[11px] uppercase tracking-[4px] text-sage font-semibold bg-sage/10 px-5 py-2 rounded-full mb-8 border border-sage/15">
                 Bientôt disponible
               </span>
-            </div>
+            </motion.div>
 
             {/* Title */}
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-off-white leading-[1.1] mb-6 animate-fade-up delay-100">
+            <motion.h1
+              custom={1}
+              variants={fadeUp}
+              initial="hidden"
+              animate="visible"
+              className="text-4xl md:text-5xl lg:text-6xl font-bold text-off-white leading-[1.1] mb-6"
+            >
               Essaye tes vêtements{" "}
               <span className="text-stone">sans les enfiler</span>
-            </h1>
+            </motion.h1>
 
             {/* Description */}
-            <p className="text-lg text-stone leading-relaxed mb-10 max-w-lg mx-auto lg:mx-0 animate-fade-up delay-200">
+            <motion.p
+              custom={2}
+              variants={fadeUp}
+              initial="hidden"
+              animate="visible"
+              className="text-lg text-stone leading-relaxed mb-10 max-w-lg mx-auto lg:mx-0"
+            >
               Crée ton avatar IA, ajoute tes pièces préférées et compose tes
               tenues en quelques secondes. Inscris-toi pour un accès anticipé.
-            </p>
+            </motion.p>
 
             {/* Waitlist form */}
-            {status === "success" ? (
-              <div className="animate-scale-in bg-charcoal rounded-2xl px-8 py-6 max-w-md mx-auto lg:mx-0 border border-medium-grey/20">
-                <div className="text-2xl mb-2 text-sage">&#10003;</div>
-                <p className="text-off-white font-semibold text-lg">{message}</p>
-                <p className="text-stone text-sm mt-2">
-                  On te tient au courant très vite.
-                </p>
-              </div>
-            ) : (
-              <form
-                onSubmit={handleSubmit}
-                className="flex items-center max-w-md mx-auto lg:mx-0 bg-charcoal rounded-full border border-medium-grey/25 p-1.5 animate-fade-up delay-300"
-              >
-                <input
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="ton@email.com"
-                  required
-                  className="flex-1 bg-transparent px-5 py-3 text-off-white placeholder:text-medium-grey text-[15px] focus:outline-none min-w-0"
-                />
-                <button
-                  type="submit"
-                  disabled={status === "loading"}
-                  className="w-11 h-11 rounded-full bg-sage flex items-center justify-center hover:bg-sage-mid transition-colors duration-300 disabled:opacity-60 cursor-pointer shrink-0"
+            <AnimatePresence mode="wait">
+              {status === "success" ? (
+                <motion.div
+                  key="success"
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                  className="bg-charcoal rounded-2xl px-8 py-6 max-w-md mx-auto lg:mx-0 border border-medium-grey/20"
                 >
-                  {status === "loading" ? (
-                    <div className="w-4 h-4 border-2 border-dark/30 border-t-dark rounded-full animate-spin" />
-                  ) : (
-                    <svg
-                      className="w-5 h-5 text-dark"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2.5"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        d="M5 12h14M12 5l7 7-7 7"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                    </svg>
-                  )}
-                </button>
-              </form>
-            )}
+                  <div className="text-2xl mb-2 text-sage">&#10003;</div>
+                  <p className="text-off-white font-semibold text-lg">{message}</p>
+                  <p className="text-stone text-sm mt-2">
+                    On te tient au courant très vite.
+                  </p>
+                </motion.div>
+              ) : (
+                <motion.form
+                  key="form"
+                  custom={3}
+                  variants={fadeUp}
+                  initial="hidden"
+                  animate="visible"
+                  onSubmit={handleSubmit}
+                  className="flex items-center max-w-md mx-auto lg:mx-0 bg-charcoal rounded-full border border-medium-grey/25 p-1.5"
+                >
+                  <input
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="ton@email.com"
+                    required
+                    className="flex-1 bg-transparent px-5 py-3 text-off-white placeholder:text-medium-grey text-[15px] focus:outline-none min-w-0"
+                  />
+                  <button
+                    type="submit"
+                    disabled={status === "loading"}
+                    className="w-11 h-11 rounded-full bg-sage flex items-center justify-center hover:bg-sage-mid transition-colors duration-300 disabled:opacity-60 cursor-pointer shrink-0"
+                  >
+                    {status === "loading" ? (
+                      <div className="w-4 h-4 border-2 border-dark/30 border-t-dark rounded-full animate-spin" />
+                    ) : (
+                      <svg
+                        className="w-5 h-5 text-dark"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2.5"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          d="M5 12h14M12 5l7 7-7 7"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        />
+                      </svg>
+                    )}
+                  </button>
+                </motion.form>
+              )}
+            </AnimatePresence>
 
             {status === "error" && (
-              <p className="text-sm text-red-400 mt-3 animate-fade-in">{message}</p>
+              <motion.p
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                className="text-sm text-red-400 mt-3"
+              >
+                {message}
+              </motion.p>
             )}
 
             {/* Social proof */}
             {status !== "success" && (
-              <div className="flex items-center gap-3 mt-8 justify-center lg:justify-start animate-fade-up delay-400">
+              <motion.div
+                custom={4}
+                variants={fadeUp}
+                initial="hidden"
+                animate="visible"
+                className="flex items-center gap-3 mt-8 justify-center lg:justify-start"
+              >
                 <div className="flex -space-x-2">
-                  <div className="w-8 h-8 rounded-full bg-gradient-to-br from-stone to-warm-grey border-2 border-dark" />
-                  <div className="w-8 h-8 rounded-full bg-gradient-to-br from-sage-mid to-stone border-2 border-dark" />
-                  <div className="w-8 h-8 rounded-full bg-gradient-to-br from-warm-grey to-medium-grey border-2 border-dark" />
+                  <Image src="https://randomuser.me/api/portraits/women/90.jpg" alt="Inscrite" width={32} height={32} className="w-8 h-8 rounded-full border-2 border-dark object-cover" />
+                  <Image src="https://randomuser.me/api/portraits/men/75.jpg" alt="Inscrit" width={32} height={32} className="w-8 h-8 rounded-full border-2 border-dark object-cover" />
+                  <Image src="https://randomuser.me/api/portraits/women/79.jpg" alt="Inscrite" width={32} height={32} className="w-8 h-8 rounded-full border-2 border-dark object-cover" />
                 </div>
                 <span className="text-sm text-warm-grey">
                   Rejoins les premiers inscrits
                 </span>
-              </div>
+              </motion.div>
             )}
 
             {/* Social media links */}
-            <div className="flex items-center gap-5 mt-8 justify-center lg:justify-start animate-fade-up delay-500">
+            <motion.div
+              custom={5}
+              variants={fadeUp}
+              initial="hidden"
+              animate="visible"
+              className="flex items-center gap-5 mt-8 justify-center lg:justify-start"
+            >
               <a
                 href="https://www.instagram.com/dressyouapp/"
                 target="_blank"
@@ -234,17 +335,26 @@ export default function Hero() {
                   <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
                 </svg>
               </a>
-            </div>
+            </motion.div>
           </div>
         </div>
       </div>
 
       {/* Scroll hint */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-fade-in delay-700">
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.6, delay: 1.2 }}
+        className="absolute bottom-8 left-1/2 -translate-x-1/2"
+      >
         <div className="w-6 h-10 rounded-full border-2 border-stone/30 flex items-start justify-center p-1.5">
-          <div className="w-1.5 h-3 bg-stone/40 rounded-full animate-bounce" />
+          <motion.div
+            animate={{ y: [0, 8, 0] }}
+            transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+            className="w-1.5 h-3 bg-stone/40 rounded-full"
+          />
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 }

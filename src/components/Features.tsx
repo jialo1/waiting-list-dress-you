@@ -1,5 +1,7 @@
 "use client";
 
+import { motion } from "framer-motion";
+
 const features = [
   {
     icon: (
@@ -34,35 +36,80 @@ const features = [
   },
 ];
 
+const containerVariants = {
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.15,
+    },
+  },
+};
+
+const cardVariants = {
+  hidden: { opacity: 0, y: 40 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.6,
+      ease: [0.16, 1, 0.3, 1],
+    },
+  },
+};
+
 export default function Features() {
   return (
-    <section id="features" className="py-24 md:py-32 bg-off-white">
+    <section id="features" className="py-24 md:py-32 bg-off-white overflow-hidden">
       <div className="max-w-5xl mx-auto px-6">
-        <p className="text-[11px] uppercase tracking-[4px] text-warm-grey text-center mb-4">
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+          className="text-[11px] uppercase tracking-[4px] text-warm-grey text-center mb-4"
+        >
           Comment ça marche
-        </p>
-        <h2 className="text-2xl md:text-3xl font-bold text-charcoal text-center mb-16">
+        </motion.p>
+        <motion.h2
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.6, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+          className="text-2xl md:text-3xl font-bold text-charcoal text-center mb-16"
+        >
           Ton dressing connecté en 3 étapes
-        </h2>
+        </motion.h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-80px" }}
+          className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12"
+        >
           {features.map((feature, i) => (
-            <div
+            <motion.div
               key={i}
+              variants={cardVariants}
+              whileHover={{ y: -6, transition: { duration: 0.3 } }}
               className="group text-center p-8 rounded-3xl bg-sage/50 hover:bg-sage transition-colors duration-500"
             >
-              <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-icon-bg/50 text-monogram-stroke mb-6 group-hover:scale-105 transition-transform duration-500">
+              <motion.div
+                whileHover={{ scale: 1.1, rotate: 3 }}
+                transition={{ type: "spring", stiffness: 300, damping: 15 }}
+                className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-icon-bg/50 text-monogram-stroke mb-6"
+              >
                 {feature.icon}
-              </div>
+              </motion.div>
               <h3 className="text-lg font-bold text-charcoal mb-3">
                 {feature.title}
               </h3>
               <p className="text-[15px] text-medium-grey leading-relaxed">
                 {feature.description}
               </p>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );
