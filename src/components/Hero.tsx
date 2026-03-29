@@ -19,7 +19,7 @@ const fadeUp = {
     transition: {
       duration: 0.7,
       delay: i * 0.12,
-      ease: [0.16, 1, 0.3, 1],
+      ease: [0.16, 1, 0.3, 1] as const,
     },
   }),
 };
@@ -53,13 +53,13 @@ function PhoneCarousel() {
       opacity: 1,
       scale: 1,
       x: 0,
-      transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] },
+      transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] as const },
     },
     exit: (dir: number) => ({
       opacity: 0,
       scale: 0.92,
       x: dir > 0 ? -40 : 40,
-      transition: { duration: 0.4, ease: "easeInOut" },
+      transition: { duration: 0.4, ease: "easeInOut" as const },
     }),
   };
 
