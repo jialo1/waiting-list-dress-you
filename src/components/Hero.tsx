@@ -68,7 +68,7 @@ function PhoneCarousel() {
       initial={{ opacity: 0, scale: 0.9 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-      className="relative w-[260px] md:w-[300px]"
+      className="relative w-[280px] md:w-[300px]"
     >
       <div className="relative aspect-[9/19.5] overflow-hidden rounded-[2px]">
         <AnimatePresence mode="wait" custom={direction}>
@@ -163,18 +163,18 @@ export default function Hero() {
         className="absolute bottom-20 -right-40 w-[400px] h-[400px] bg-stone/10 rounded-full blur-[120px]"
       />
 
-      <div className="relative z-10 max-w-6xl mx-auto px-6 min-h-[calc(100vh-4rem)] flex items-center">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-12 items-center w-full py-16">
-          {/* Left: Phone carousel */}
-          <div className="flex justify-center order-2 lg:order-1">
+      <div className="relative z-10 max-w-6xl mx-auto px-6 lg:min-h-[calc(100vh-4rem)] flex items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-12 items-center w-full py-10 lg:py-16">
+          {/* Phone carousel */}
+          <div className="flex justify-center order-1 lg:order-1">
             <PhoneCarousel />
           </div>
 
-          {/* Right: Content */}
-          <div className="text-center lg:text-left order-1 lg:order-2">
+          {/* Content */}
+          <div className="text-center lg:text-left order-2 lg:order-2">
             {/* Badge */}
             <motion.div custom={0} variants={fadeUp} initial="hidden" animate="visible">
-              <span className="inline-block text-[11px] uppercase tracking-[4px] text-sage font-semibold bg-sage/10 px-5 py-2 rounded-full mb-8 border border-sage/15">
+              <span className="inline-block text-[11px] uppercase tracking-[4px] text-sage font-semibold bg-sage/10 px-5 py-2 rounded-full mb-5 lg:mb-8 border border-sage/15">
                 Bientôt disponible
               </span>
             </motion.div>
@@ -185,7 +185,7 @@ export default function Hero() {
               variants={fadeUp}
               initial="hidden"
               animate="visible"
-              className="text-4xl md:text-5xl lg:text-6xl font-bold text-off-white leading-[1.1] mb-6"
+              className="text-3xl md:text-5xl lg:text-6xl font-bold text-off-white leading-[1.1] mb-4 lg:mb-6"
             >
               Essaye tes vêtements{" "}
               <span className="text-stone">sans les enfiler</span>
@@ -197,7 +197,7 @@ export default function Hero() {
               variants={fadeUp}
               initial="hidden"
               animate="visible"
-              className="text-lg text-stone leading-relaxed mb-10 max-w-lg mx-auto lg:mx-0"
+              className="text-base lg:text-lg text-stone leading-relaxed mb-6 lg:mb-10 max-w-lg mx-auto lg:mx-0"
             >
               Crée ton avatar IA, ajoute tes pièces préférées et compose tes
               tenues en quelques secondes. Inscris-toi pour un accès anticipé.
@@ -281,7 +281,7 @@ export default function Hero() {
                 variants={fadeUp}
                 initial="hidden"
                 animate="visible"
-                className="flex items-center gap-3 mt-8 justify-center lg:justify-start"
+                className="flex items-center gap-3 mt-5 lg:mt-8 justify-center lg:justify-start"
               >
                 <div className="flex -space-x-2">
                   <Image src="https://randomuser.me/api/portraits/women/90.jpg" alt="Inscrite" width={32} height={32} className="w-8 h-8 rounded-full border-2 border-dark object-cover" />
@@ -300,7 +300,7 @@ export default function Hero() {
               variants={fadeUp}
               initial="hidden"
               animate="visible"
-              className="flex items-center gap-5 mt-8 justify-center lg:justify-start"
+              className="flex items-center gap-5 mt-5 lg:mt-8 justify-center lg:justify-start"
             >
               <a
                 href="https://www.instagram.com/dressyouapp/"
@@ -340,12 +340,12 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* Scroll hint */}
+      {/* Scroll hint - desktop only */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.6, delay: 1.2 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2"
+        className="hidden lg:block absolute bottom-8 left-1/2 -translate-x-1/2"
       >
         <div className="w-6 h-10 rounded-full border-2 border-stone/30 flex items-start justify-center p-1.5">
           <motion.div
