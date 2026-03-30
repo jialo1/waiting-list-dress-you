@@ -1,8 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
 import fs from "fs/promises";
 import path from "path";
+import { Resend } from "resend";
 
 const DATA_FILE = path.join(process.cwd(), "waitlist.json");
+
+const NOTIFY_TO = process.env.WAITLIST_NOTIFY_EMAIL ?? "info@dygroup.co";
+const RESEND_FROM =
+  process.env.RESEND_FROM ?? "Dress You <onboarding@resend.dev>";
 
 async function getEmails(): Promise<string[]> {
   try {
@@ -15,6 +20,41 @@ async function getEmails(): Promise<string[]> {
 
 async function saveEmails(emails: string[]) {
   await fs.writeFile(DATA_FILE, JSON.stringify(emails, null, 2));
+}
+
+async function notifyTeamNewSignup(subscriberEmail: string) {
+  const apiKey = process.env.RESEND_API_KEY;
+  if (!apiKey) {
+    console.warn(
+      "[waitlist] RESEND_API_KEY manquant : aucun email envoyé à l'équipe."
+    );
+    return;
+  }
+
+  const resend = new Resend(apiKey);
+
+  const { error } = await resend.emails.send({
+    from: RESEND_FROM,
+    to: [NOTIFY_TO],
+    subject: "Nouvelle inscription - Dress You (liste d'attente)",
+    html: `
+      <p>Une nouvelle personne vient de s'inscrire à la liste d'attente Dress You.</p>
+      <p><strong>Email :</strong> ${escapeHtml(subscriberEmail)}</p>
+      <p style="color:#666;font-size:12px;margin-top:24px;">Message automatique envoyé depuis le site Dress You.</p>
+    `,
+  });
+
+  if (error) {
+    console.error("[waitlist] Erreur Resend :", error);
+  }
+}
+
+function escapeHtml(text: string) {
+  return text
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
 }
 
 export async function POST(request: NextRequest) {
@@ -30,16 +70,19 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Email invalide." }, { status: 400 });
     }
 
+    const normalized = email.toLowerCase();
     const emails = await getEmails();
 
-    if (emails.includes(email.toLowerCase())) {
+    if (emails.includes(normalized)) {
       return NextResponse.json({
         message: "Tu es déjà sur la liste !",
       });
     }
 
-    emails.push(email.toLowerCase());
+    emails.push(normalized);
     await saveEmails(emails);
+
+    await notifyTeamNewSignup(normalized);
 
     return NextResponse.json({
       message: "Bienvenue sur la liste !",
