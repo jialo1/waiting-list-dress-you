@@ -22,14 +22,26 @@ async function saveEmails(emails: string[]) {
   await fs.writeFile(DATA_FILE, JSON.stringify(emails, null, 2));
 }
 
-async function notifyTeamNewSignup(subscriberEmail: string) {
-  const apiKey = process.env.RESEND_API_KEY;
-  if (!apiKey) {
-    console.warn(
-      "[waitlist] RESEND_API_KEY manquant : aucun email envoyé à l'équipe."
-    );
-    return;
+async function notifyDiscord(subscriberEmail: string) {
+  const url = process.env.DISCORD_WEBHOOK_URL;
+  if (!url) return;
+
+  const res = await fetch(url, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      content: `**Dress You** - Nouvelle inscription liste d'attente\n\`${subscriberEmail}\``,
+    }),
+  });
+
+  if (!res.ok) {
+    console.error("[waitlist] Erreur Discord webhook :", res.status, await res.text());
   }
+}
+
+async function notifyResendEmail(subscriberEmail: string) {
+  const apiKey = process.env.RESEND_API_KEY;
+  if (!apiKey) return;
 
   const resend = new Resend(apiKey);
 
@@ -47,6 +59,23 @@ async function notifyTeamNewSignup(subscriberEmail: string) {
   if (error) {
     console.error("[waitlist] Erreur Resend :", error);
   }
+}
+
+async function notifyTeamNewSignup(subscriberEmail: string) {
+  const hasDiscord = Boolean(process.env.DISCORD_WEBHOOK_URL);
+  const hasResend = Boolean(process.env.RESEND_API_KEY);
+
+  if (!hasDiscord && !hasResend) {
+    console.warn(
+      "[waitlist] Aucune notification : ajoute DISCORD_WEBHOOK_URL (gratuit) ou RESEND_API_KEY sur Vercel."
+    );
+    return;
+  }
+
+  await Promise.all([
+    notifyDiscord(subscriberEmail),
+    notifyResendEmail(subscriberEmail),
+  ]);
 }
 
 function escapeHtml(text: string) {
