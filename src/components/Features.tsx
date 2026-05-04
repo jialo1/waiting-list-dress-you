@@ -12,7 +12,7 @@ const features = [
       </svg>
     ),
     title: "Crée ton avatar IA",
-    description: "Une photo suffit. Notre IA génère ton double virtuel fidèle à ta morphologie.",
+    description: "Crée ton avatar IA fidèle à ta morphologie en une photo.",
   },
   {
     icon: (
@@ -23,28 +23,34 @@ const features = [
       </svg>
     ),
     title: "Ajoute tes pièces",
-    description: "Importe tes vêtements depuis une photo ou notre catalogue de marques partenaires.",
+    description: "Ajoute tes vêtements depuis une photo ou le catalogue.",
   },
   {
     icon: (
       <svg viewBox="0 0 48 48" fill="none" className="w-10 h-10" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M24 4l5.09 10.32L40.18 16l-8.09 7.88 1.91 11.12L24 29.76 14 35l1.91-11.12L7.82 16l11.09-1.68L24 4z" />
+        <rect x="9" y="6" width="30" height="36" rx="2" />
+        <path d="M24 6v36" />
+        <path d="M21 11a3 3 0 016 0" />
+        <path d="M24 14v3" />
+        <path d="M16 19h16" />
+        <path d="M17 27h2M29 27h2" />
       </svg>
     ),
     title: "Essaye & combine",
-    description: "Visualise tes tenues sur ton avatar. Trouve le match parfait en quelques secondes.",
+    description:
+      "Sur ton avatar, essaie des vêtements du e-commerce, compose des tenues et vois le rendu avant d'acheter — depuis ton téléphone.",
   },
   {
     icon: (
       <svg viewBox="0 0 48 48" fill="none" className="w-10 h-10" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <rect x="6" y="8" width="36" height="6" rx="2" />
-        <rect x="6" y="20" width="24" height="6" rx="2" />
-        <rect x="6" y="32" width="30" height="6" rx="2" />
-        <circle cx="40" cy="23" r="3" />
+        <circle cx="24" cy="24" r="16" />
+        <path d="M8 24h32" />
+        <path d="M24 8c-6.5 4.5-6.5 27.5 0 32M24 8c6.5 4.5 6.5 27.5 0 32" />
       </svg>
     ),
     title: "Notre feed",
-    description: "Découvre un fil de looks créés par la communauté, inspire-toi des tendances et partage tes tenues.",
+    description:
+      "Découvre des looks, inspire-toi, partage les tiens avec tes liens et gagne de l'argent grâce à l'affiliation.",
   },
 ];
 
@@ -71,14 +77,14 @@ const cardVariants = {
 
 export default function Features() {
   return (
-    <section id="features" className="py-24 md:py-32 bg-off-white overflow-hidden">
-      <div className="max-w-6xl mx-auto px-6">
+    <section id="features" className="bg-off-white py-20 sm:py-24 md:py-32 overflow-hidden">
+      <div className="mx-auto max-w-6xl px-6">
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-          className="text-[11px] uppercase tracking-[4px] text-warm-grey text-center mb-4"
+          className="mb-4 text-center text-[11px] uppercase tracking-[4px] text-warm-grey"
         >
           Dress You
         </motion.p>
@@ -87,7 +93,7 @@ export default function Features() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.6, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-          className="text-2xl md:text-3xl font-bold text-charcoal text-center mb-16"
+          className="mb-12 text-center text-2xl font-bold text-charcoal md:mb-16 md:text-3xl"
         >
           Nos fonctionnalités
         </motion.h2>
@@ -97,26 +103,28 @@ export default function Features() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-80px" }}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-10"
+          className="grid grid-cols-1 items-stretch gap-6 sm:grid-cols-2 sm:gap-8 lg:grid-cols-4 lg:gap-8"
         >
           {features.map((feature, i) => (
             <motion.div
               key={i}
               variants={cardVariants}
               whileHover={{ y: -6, transition: { duration: 0.3 } }}
-              className="group text-center p-8 rounded-3xl bg-sage/50 hover:bg-sage transition-colors duration-500"
+              className="group flex h-full flex-col items-center justify-start rounded-3xl bg-sage/50 p-6 text-center transition-colors duration-500 hover:bg-sage sm:p-7 md:p-8"
             >
               <motion.div
                 whileHover={{ scale: 1.1, rotate: 3 }}
                 transition={{ type: "spring", stiffness: 300, damping: 15 }}
-                className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-icon-bg/50 text-monogram-stroke mb-6"
+                className="mx-auto mb-5 flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-icon-bg/50 text-monogram-stroke sm:mb-6"
               >
-                {feature.icon}
+                <span className="flex h-10 w-10 shrink-0 items-center justify-center [&>svg]:h-10 [&>svg]:w-10 [&>svg]:shrink-0">
+                  {feature.icon}
+                </span>
               </motion.div>
-              <h3 className="text-lg font-bold text-charcoal mb-3">
+              <h3 className="mb-2.5 w-full shrink-0 text-lg font-bold text-charcoal sm:mb-3">
                 {feature.title}
               </h3>
-              <p className="text-[15px] text-medium-grey leading-relaxed">
+              <p className="w-full text-[15px] leading-relaxed text-medium-grey">
                 {feature.description}
               </p>
             </motion.div>
