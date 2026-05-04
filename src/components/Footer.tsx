@@ -3,26 +3,22 @@ import { LogoMark } from "./Logo";
 
 export default function Footer() {
   return (
-    <footer className="bg-dark text-warm-grey py-16">
+    <footer className="bg-[#E2E4DE] text-charcoal py-16">
       <div className="max-w-5xl mx-auto px-6">
         <div className="flex flex-col md:flex-row items-center md:items-start justify-between gap-10">
           {/* Brand */}
           <div className="flex flex-col items-center md:items-start gap-4">
-            <div className="flex items-center gap-3">
-              <LogoMark className="w-8 h-8 text-stone" />
-              <div className="flex items-baseline gap-[2px] tracking-[3px] text-lg">
-                <span className="font-light text-stone">dress</span>
-                <span className="font-extrabold text-off-white">you</span>
-              </div>
+            <div className="flex items-center">
+              <LogoMark className="h-10 w-auto max-h-10 max-w-[240px]" />
             </div>
-            <p className="text-sm text-medium-grey max-w-xs text-center md:text-left">
+            <p className="text-sm text-charcoal/70 max-w-xs text-center md:text-left">
               Ton avatar IA pour essayer tes vêtements avant de les acheter.
             </p>
           </div>
 
           {/* Social links */}
           <div className="flex flex-col items-center md:items-end gap-4">
-            <p className="text-[11px] uppercase tracking-[4px] text-medium-grey">
+            <p className="text-[11px] uppercase tracking-[4px] text-charcoal/50">
               Suivez-nous
             </p>
             <div className="flex gap-6">
@@ -30,41 +26,37 @@ export default function Footer() {
                 href="https://www.instagram.com/dressyouapp/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-sm text-stone hover:text-off-white transition-colors duration-300"
+                className="text-sm text-charcoal/80 hover:text-charcoal transition-colors duration-300 font-medium"
               >
                 Instagram
               </a>
               <a
-                href="#"
-                className="text-sm text-stone hover:text-off-white transition-colors duration-300"
+                href="https://www.linkedin.com/company/dressyou/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-sm text-charcoal/80 hover:text-charcoal transition-colors duration-300 font-medium"
               >
-                TikTok
-              </a>
-              <a
-                href="#"
-                className="text-sm text-stone hover:text-off-white transition-colors duration-300"
-              >
-                Twitter
+                LinkedIn
               </a>
             </div>
           </div>
         </div>
 
         {/* Separator */}
-        <div className="border-t border-medium-grey/20 mt-12 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="text-xs text-medium-grey">
+        <div className="border-t border-medium-grey/30 mt-12 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
+          <p className="text-xs text-charcoal/55">
             &copy; {new Date().getFullYear()} Dress You. Tous droits réservés.
           </p>
           <div className="flex gap-6">
             <Link
               href="/politique-de-confidentialite"
-              className="text-xs text-medium-grey hover:text-stone transition-colors duration-300"
+              className="text-xs text-charcoal/80 hover:text-charcoal transition-colors duration-300"
             >
               Politique de confidentialité
             </Link>
             <Link
               href="/cgu"
-              className="text-xs text-medium-grey hover:text-stone transition-colors duration-300"
+              className="text-xs text-charcoal/80 hover:text-charcoal transition-colors duration-300"
             >
               CGU
             </Link>

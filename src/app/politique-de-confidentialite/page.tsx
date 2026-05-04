@@ -12,13 +12,9 @@ export default function PolitiqueDeConfidentialite() {
     <div className="min-h-screen bg-off-white">
       {/* Header */}
       <nav className="bg-dark/95 backdrop-blur-md border-b border-medium-grey/10">
-        <div className="max-w-4xl mx-auto px-6 h-16 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-3">
-            <LogoMark className="w-9 h-9 text-stone" />
-            <div className="flex items-baseline gap-[2px] tracking-[3px] text-lg">
-              <span className="font-light text-stone">dress</span>
-              <span className="font-extrabold text-off-white">you</span>
-            </div>
+        <div className="max-w-4xl mx-auto px-6 h-14 flex items-center justify-between">
+          <Link href="/" className="flex items-center">
+            <LogoMark className="h-10 w-auto max-h-10 max-w-[240px]" />
           </Link>
           <Link
             href="/"

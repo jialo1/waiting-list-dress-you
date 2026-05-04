@@ -11,7 +11,7 @@ const features = [
         <path d="M32 10l4-4M36 14l4-4" opacity="0.5" />
       </svg>
     ),
-    title: "Crée ton avatar",
+    title: "Crée ton avatar IA",
     description: "Une photo suffit. Notre IA génère ton double virtuel fidèle à ta morphologie.",
   },
   {
@@ -33,6 +33,18 @@ const features = [
     ),
     title: "Essaye & combine",
     description: "Visualise tes tenues sur ton avatar. Trouve le match parfait en quelques secondes.",
+  },
+  {
+    icon: (
+      <svg viewBox="0 0 48 48" fill="none" className="w-10 h-10" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <rect x="6" y="8" width="36" height="6" rx="2" />
+        <rect x="6" y="20" width="24" height="6" rx="2" />
+        <rect x="6" y="32" width="30" height="6" rx="2" />
+        <circle cx="40" cy="23" r="3" />
+      </svg>
+    ),
+    title: "Notre feed",
+    description: "Découvre un fil de looks créés par la communauté, inspire-toi des tendances et partage tes tenues.",
   },
 ];
 
@@ -60,7 +72,7 @@ const cardVariants = {
 export default function Features() {
   return (
     <section id="features" className="py-24 md:py-32 bg-off-white overflow-hidden">
-      <div className="max-w-5xl mx-auto px-6">
+      <div className="max-w-6xl mx-auto px-6">
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -68,7 +80,7 @@ export default function Features() {
           transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
           className="text-[11px] uppercase tracking-[4px] text-warm-grey text-center mb-4"
         >
-          Comment ça marche
+          Dress You
         </motion.p>
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
@@ -77,7 +89,7 @@ export default function Features() {
           transition={{ duration: 0.6, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
           className="text-2xl md:text-3xl font-bold text-charcoal text-center mb-16"
         >
-          Ton dressing connecté en 3 étapes
+          Nos fonctionnalités
         </motion.h2>
 
         <motion.div
@@ -85,7 +97,7 @@ export default function Features() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-80px" }}
-          className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-10"
         >
           {features.map((feature, i) => (
             <motion.div
