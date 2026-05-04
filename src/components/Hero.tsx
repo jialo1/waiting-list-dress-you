@@ -231,9 +231,11 @@ export default function Hero() {
                 >
                   <input
                     type="email"
+                    name="email"
+                    autoComplete="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    placeholder="ton@email.com"
+                    placeholder="ton@exemple.com"
                     required
                     className="flex-1 bg-transparent px-5 py-3 text-off-white placeholder:text-medium-grey text-[15px] focus:outline-none min-w-0"
                   />

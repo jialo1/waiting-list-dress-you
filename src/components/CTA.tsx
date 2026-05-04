@@ -105,9 +105,11 @@ export default function CTA() {
             >
               <input
                 type="email"
+                name="email"
+                autoComplete="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder="ton@email.com"
+                placeholder="ton@exemple.com"
                 required
                 className="w-full sm:flex-1 bg-charcoal rounded-full border border-medium-grey/25 px-6 py-3.5 text-off-white placeholder:text-medium-grey text-[15px] focus:outline-none focus:border-sage/40 transition-colors duration-300"
               />
