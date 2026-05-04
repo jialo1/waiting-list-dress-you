@@ -5,10 +5,10 @@ import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 
 const phoneScreens = [
-  { src: "/images/1.png", alt: "DressYou - Écran d'accueil" },
-  { src: "/images/2.png", alt: "DressYou - Votre dressing digital" },
-  { src: "/images/3.png", alt: "DressYou - Explorez et inspirez-vous" },
-  { src: "/images/4.png", alt: "DressYou - Connexion" },
+  { src: "/images/1-v2.png", alt: "DressYou - Écran d'accueil" },
+  { src: "/images/2-v2.png", alt: "DressYou - Votre dressing digital" },
+  { src: "/images/3-v2.png", alt: "DressYou - Explorez et inspirez-vous" },
+  { src: "/images/4-v2.png", alt: "DressYou - Connexion" },
 ];
 
 const fadeUp = {
