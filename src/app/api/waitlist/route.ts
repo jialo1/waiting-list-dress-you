@@ -18,46 +18,66 @@ async function getEmails(): Promise<string[]> {
   }
 }
 
-async function saveEmails(emails: string[]) {
-  await fs.writeFile(DATA_FILE, JSON.stringify(emails, null, 2));
+async function saveEmails(emails: string[]): Promise<boolean> {
+  try {
+    await fs.writeFile(DATA_FILE, JSON.stringify(emails, null, 2));
+    return true;
+  } catch (err) {
+    console.error(
+      "[waitlist] Impossible d'écrire waitlist.json (souvent lecture seule en prod, ex. Vercel) :",
+      err
+    );
+    return false;
+  }
 }
 
 async function notifyDiscord(subscriberEmail: string) {
-  const url = process.env.DISCORD_WEBHOOK_URL;
-  if (!url) return;
+  try {
+    const url = process.env.DISCORD_WEBHOOK_URL;
+    if (!url) return;
 
-  const res = await fetch(url, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      content: `**Dress You** - Nouvelle inscription liste d'attente\n\`${subscriberEmail}\``,
-    }),
-  });
+    const res = await fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        content: `**Dress You** - Nouvelle inscription liste d'attente\n\`${subscriberEmail}\``,
+      }),
+    });
 
-  if (!res.ok) {
-    console.error("[waitlist] Erreur Discord webhook :", res.status, await res.text());
+    if (!res.ok) {
+      console.error("[waitlist] Erreur Discord webhook :", res.status, await res.text());
+    }
+  } catch (err) {
+    console.error("[waitlist] Discord exception :", err);
   }
 }
 
 async function notifyResendEmail(subscriberEmail: string) {
-  const apiKey = process.env.RESEND_API_KEY;
-  if (!apiKey) return;
+  try {
+    const apiKey = process.env.RESEND_API_KEY;
+    if (!apiKey) return;
 
-  const resend = new Resend(apiKey);
+    const resend = new Resend(apiKey);
 
-  const { error } = await resend.emails.send({
-    from: RESEND_FROM,
-    to: [NOTIFY_TO],
-    subject: "Nouvelle inscription - Dress You (liste d'attente)",
-    html: `
+    const { data, error } = await resend.emails.send({
+      from: RESEND_FROM,
+      to: [NOTIFY_TO],
+      subject: "Nouvelle inscription - Dress You (liste d'attente)",
+      replyTo: NOTIFY_TO,
+      html: `
       <p>Une nouvelle personne vient de s'inscrire à la liste d'attente Dress You.</p>
       <p><strong>Email :</strong> ${escapeHtml(subscriberEmail)}</p>
       <p style="color:#666;font-size:12px;margin-top:24px;">Message automatique envoyé depuis le site Dress You.</p>
     `,
-  });
+    });
 
-  if (error) {
-    console.error("[waitlist] Erreur Resend :", error);
+    if (error) {
+      console.error("[waitlist] Erreur Resend :", JSON.stringify(error, null, 2));
+    } else if (data?.id) {
+      console.info("[waitlist] Email Resend envoyé, id :", data.id);
+    }
+  } catch (err) {
+    console.error("[waitlist] Resend exception :", err);
   }
 }
 
@@ -88,7 +108,17 @@ function escapeHtml(text: string) {
 
 export async function POST(request: NextRequest) {
   try {
-    const { email } = await request.json();
+    let body: unknown;
+    try {
+      body = await request.json();
+    } catch {
+      return NextResponse.json({ error: "Requête invalide." }, { status: 400 });
+    }
+
+    const email =
+      typeof body === "object" && body !== null && "email" in body
+        ? (body as { email: unknown }).email
+        : undefined;
 
     if (!email || typeof email !== "string") {
       return NextResponse.json({ error: "Email requis." }, { status: 400 });
@@ -109,15 +139,16 @@ export async function POST(request: NextRequest) {
     }
 
     emails.push(normalized);
-    await saveEmails(emails);
+    const persisted = await saveEmails(emails);
 
     await notifyTeamNewSignup(normalized);
 
     return NextResponse.json({
       message: "Bienvenue sur la liste !",
-      count: emails.length,
+      ...(persisted ? { count: emails.length } : {}),
     });
-  } catch {
+  } catch (err) {
+    console.error("[waitlist] POST erreur :", err);
     return NextResponse.json(
       { error: "Erreur serveur. Réessaye." },
       { status: 500 }
