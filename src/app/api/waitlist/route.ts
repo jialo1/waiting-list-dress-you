@@ -107,11 +107,19 @@ function escapeHtml(text: string) {
 }
 
 export async function POST(request: NextRequest) {
+  console.info("[waitlist] step:start", {
+    hasResendKey: Boolean(process.env.RESEND_API_KEY),
+    hasDiscord: Boolean(process.env.DISCORD_WEBHOOK_URL),
+    notifyTo: NOTIFY_TO,
+    from: RESEND_FROM,
+  });
   try {
     let body: unknown;
     try {
       body = await request.json();
-    } catch {
+      console.info("[waitlist] step:body-parsed");
+    } catch (e) {
+      console.error("[waitlist] step:body-parse-failed", e);
       return NextResponse.json({ error: "Requête invalide." }, { status: 400 });
     }
 
@@ -130,7 +138,15 @@ export async function POST(request: NextRequest) {
     }
 
     const normalized = email.toLowerCase();
-    const emails = await getEmails();
+    console.info("[waitlist] step:email-validated", normalized);
+
+    let emails: string[] = [];
+    try {
+      emails = await getEmails();
+      console.info("[waitlist] step:emails-loaded", emails.length);
+    } catch (e) {
+      console.error("[waitlist] step:emails-load-failed", e);
+    }
 
     if (emails.includes(normalized)) {
       return NextResponse.json({
@@ -139,16 +155,28 @@ export async function POST(request: NextRequest) {
     }
 
     emails.push(normalized);
-    const persisted = await saveEmails(emails);
 
-    await notifyTeamNewSignup(normalized);
+    let persisted = false;
+    try {
+      persisted = await saveEmails(emails);
+      console.info("[waitlist] step:emails-saved", persisted);
+    } catch (e) {
+      console.error("[waitlist] step:emails-save-failed", e);
+    }
+
+    try {
+      await notifyTeamNewSignup(normalized);
+      console.info("[waitlist] step:notify-done");
+    } catch (e) {
+      console.error("[waitlist] step:notify-failed", e);
+    }
 
     return NextResponse.json({
       message: "Bienvenue sur la liste !",
       ...(persisted ? { count: emails.length } : {}),
     });
   } catch (err) {
-    console.error("[waitlist] POST erreur :", err);
+    console.error("[waitlist] step:fatal", err);
     return NextResponse.json(
       { error: "Erreur serveur. Réessaye." },
       { status: 500 }
