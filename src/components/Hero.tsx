@@ -3,12 +3,13 @@
 import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
+import { useTranslation } from "@/lib/LanguageProvider";
 
 const phoneScreens = [
-  { src: "/images/1-v2.png", alt: "DressYou - Écran d'accueil" },
-  { src: "/images/2-v2.png", alt: "DressYou - Votre dressing digital" },
-  { src: "/images/3-v2.png", alt: "DressYou - Explorez et inspirez-vous" },
-  { src: "/images/4-v2.png", alt: "DressYou - Connexion" },
+  { src: "/images/1-v2.png", alt: "Dress You" },
+  { src: "/images/2-v2.png", alt: "Dress You" },
+  { src: "/images/3-v2.png", alt: "Dress You" },
+  { src: "/images/4-v2.png", alt: "Dress You" },
 ];
 
 const fadeUp = {
@@ -107,17 +108,16 @@ function PhoneCarousel() {
           />
         ))}
       </div>
-
-      {/* Glow effect */}
-      <div className="absolute -inset-10 bg-sage/8 rounded-full blur-3xl -z-10" />
     </motion.div>
   );
 }
 
 export default function Hero() {
+  const { t } = useTranslation();
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
-  const [message, setMessage] = useState("");
+  const [successKey, setSuccessKey] = useState<"successTitle" | "alreadySubscribed">("successTitle");
+  const [errorMessage, setErrorMessage] = useState("");
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -135,34 +135,20 @@ export default function Hero() {
 
       if (res.ok) {
         setStatus("success");
-        setMessage(data.message || "Tu es sur la liste !");
+        setSuccessKey(data.status === "already_subscribed" ? "alreadySubscribed" : "successTitle");
         setEmail("");
       } else {
         setStatus("error");
-        setMessage(data.error || "Une erreur est survenue.");
+        setErrorMessage(t.hero.errorServer);
       }
     } catch {
       setStatus("error");
-      setMessage("Erreur de connexion. Réessaye.");
+      setErrorMessage(t.hero.errorConnection);
     }
   }
 
   return (
     <section className="relative min-h-screen bg-dark overflow-hidden pt-14">
-      {/* Decorative gradient orbs */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1.5 }}
-        className="absolute top-20 -left-40 w-[500px] h-[500px] bg-sage/8 rounded-full blur-[120px]"
-      />
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1.5, delay: 0.3 }}
-        className="absolute bottom-20 -right-40 w-[400px] h-[400px] bg-stone/10 rounded-full blur-[120px]"
-      />
-
       <div className="relative z-10 max-w-6xl mx-auto px-6 lg:min-h-[calc(100vh-3.5rem)] flex items-center">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-12 items-center w-full py-10 lg:py-16">
           {/* Phone carousel */}
@@ -175,7 +161,7 @@ export default function Hero() {
             {/* Badge */}
             <motion.div custom={0} variants={fadeUp} initial="hidden" animate="visible">
               <span className="inline-block text-[11px] uppercase tracking-[4px] text-sage font-semibold bg-sage/10 px-5 py-2 rounded-full mb-5 lg:mb-8 border border-sage/15">
-                Bientôt disponible
+                {t.hero.badge}
               </span>
             </motion.div>
 
@@ -187,8 +173,8 @@ export default function Hero() {
               animate="visible"
               className="text-3xl md:text-5xl lg:text-6xl font-bold text-off-white leading-[1.1] mb-4 lg:mb-6"
             >
-              Essaye tes vêtements{" "}
-              <span className="text-stone">sans les enfiler</span>
+              {t.hero.title1}{" "}
+              <span className="text-stone">{t.hero.title2}</span>
             </motion.h1>
 
             {/* Description */}
@@ -199,8 +185,7 @@ export default function Hero() {
               animate="visible"
               className="text-base lg:text-lg text-stone leading-relaxed mb-6 lg:mb-10 max-w-lg mx-auto lg:mx-0"
             >
-              Crée ton avatar IA, ajoute tes pièces préférées et compose tes
-              tenues en quelques secondes. Inscris-toi pour un accès anticipé.
+              {t.hero.description}
             </motion.p>
 
             {/* Waitlist form */}
@@ -214,9 +199,9 @@ export default function Hero() {
                   className="bg-charcoal rounded-2xl px-8 py-6 max-w-md mx-auto lg:mx-0 border border-medium-grey/20"
                 >
                   <div className="text-2xl mb-2 text-sage">&#10003;</div>
-                  <p className="text-off-white font-semibold text-lg">{message}</p>
+                  <p className="text-off-white font-semibold text-lg">{t.hero[successKey]}</p>
                   <p className="text-stone text-sm mt-2">
-                    On te tient au courant très vite.
+                    {t.hero.successHint}
                   </p>
                 </motion.div>
               ) : (
@@ -235,7 +220,7 @@ export default function Hero() {
                     autoComplete="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    placeholder="ton@exemple.com"
+                    placeholder={t.hero.placeholder}
                     required
                     className="flex-1 bg-transparent px-5 py-3 text-off-white placeholder:text-medium-grey text-[15px] focus:outline-none min-w-0"
                   />
@@ -272,7 +257,7 @@ export default function Hero() {
                 animate={{ opacity: 1 }}
                 className="text-sm text-red-400 mt-3"
               >
-                {message}
+                {errorMessage}
               </motion.p>
             )}
 
@@ -291,7 +276,7 @@ export default function Hero() {
                   <Image src="https://randomuser.me/api/portraits/women/79.jpg" alt="Inscrite" width={32} height={32} className="w-8 h-8 rounded-full border-2 border-dark object-cover" />
                 </div>
                 <span className="text-sm text-warm-grey">
-                  Rejoins les premiers inscrits
+                  {t.hero.socialProof}
                 </span>
               </motion.div>
             )}

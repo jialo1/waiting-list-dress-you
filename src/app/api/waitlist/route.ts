@@ -150,6 +150,7 @@ export async function POST(request: NextRequest) {
 
     if (emails.includes(normalized)) {
       return NextResponse.json({
+        status: "already_subscribed",
         message: "Tu es déjà sur la liste !",
       });
     }
@@ -172,6 +173,7 @@ export async function POST(request: NextRequest) {
     }
 
     return NextResponse.json({
+      status: "subscribed",
       message: "Bienvenue sur la liste !",
       ...(persisted ? { count: emails.length } : {}),
     });
