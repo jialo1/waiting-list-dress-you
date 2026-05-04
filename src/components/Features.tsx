@@ -17,13 +17,14 @@ const features = [
   {
     icon: (
       <svg viewBox="0 0 48 48" fill="none" className="w-10 h-10" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M24 6L30 18H18L24 6Z" />
-        <rect x="14" y="18" width="20" height="24" rx="2" />
-        <path d="M20 18V14a4 4 0 018 0v4" />
+        <path d="M24 8v22" />
+        <path d="M15 23l9 9 9-9" />
+        <path d="M12 38h24" />
       </svg>
     ),
     title: "Ajoute tes pièces",
-    description: "Ajoute tes vêtements depuis une photo ou le catalogue.",
+    description:
+      "Colle les liens de tes vêtements pour remplir ton e-dressing dans l'app : des tenues issues de ton dressing te sont proposées quand tu veux, selon ton mood.",
   },
   {
     icon: (
@@ -38,7 +39,7 @@ const features = [
     ),
     title: "Essaye & combine",
     description:
-      "Sur ton avatar, essaie des vêtements du e-commerce, compose des tenues et vois le rendu avant d'acheter — depuis ton téléphone.",
+      "Sur ton avatar, essaie des vêtements du e-commerce, compose des tenues et vois le rendu avant d'acheter.",
   },
   {
     icon: (
