@@ -171,7 +171,7 @@ export default function Hero() {
               variants={fadeUp}
               initial="hidden"
               animate="visible"
-              className="text-3xl md:text-5xl lg:text-6xl font-bold text-off-white leading-[1.1] mb-4 lg:mb-6"
+              className="text-3xl md:text-4xl lg:text-5xl font-bold text-off-white leading-[1.15] mb-4 lg:mb-6"
             >
               {t.hero.title1}{" "}
               <span className="text-stone">{t.hero.title2}</span>

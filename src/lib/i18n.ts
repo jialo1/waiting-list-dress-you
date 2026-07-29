@@ -76,9 +76,9 @@ export const translations: Record<Locale, Translations> = {
     hero: {
       badge: "Bientôt disponible",
       title1: "La nouvelle app mode",
-      title2: "qui réinvente ton quotidien",
+      title2: "qui réinvente ton quotidien grâce à l'IA",
       description:
-        "Découvre, essaie, partage et revends tes vêtements depuis une seule app. Grâce à l'IA, visualise chaque tenue sur toi avant d'acheter, compose tes outfits en quelques secondes et rejoins une communauté qui t'inspire chaque jour.",
+        "Grâce à l'IA, visualise chaque vêtement ou outfit sur toi avant d'acheter en ligne, compose tes tenues en quelques secondes, découvre les dernières tendances dans le feed, partage tes looks avec la communauté et, bientôt, achète ou revends tes vêtements en seconde main. Tout ça, dans une seule app.",
       placeholder: "ton@exemple.com",
       successTitle: "Tu es sur la liste !",
       alreadySubscribed: "Tu es déjà sur la liste !",
@@ -100,7 +100,7 @@ export const translations: Record<Locale, Translations> = {
         {
           title: "Et cinq apps à jongler",
           description:
-            "Une pour l'inspiration, une autre pour trouver les pièces que tu aimes, une troisième pour acheter ou revendre. Aucune ne te connaît vraiment.",
+            "Une pour l'inspiration, une autre pour trouver les pièces que tu aimes, une troisième pour acheter ou revendre de la seconde main. Aucune ne te connaît vraiment.",
         },
       ],
       footnote:
@@ -223,9 +223,9 @@ export const translations: Record<Locale, Translations> = {
     hero: {
       badge: "Coming soon",
       title1: "The new fashion app",
-      title2: "that reinvents your everyday",
+      title2: "that reinvents your everyday with AI",
       description:
-        "Discover, try on, share and resell your clothes from a single app. With AI, see every outfit on yourself before you buy, put looks together in seconds and join a community that inspires you every day.",
+        "With AI, see any garment or outfit on yourself before you buy online, put looks together in seconds, catch the latest trends in the feed, share your looks with the community and, soon, buy or resell your clothes second-hand. All of it, in a single app.",
       placeholder: "you@example.com",
       successTitle: "You're on the list!",
       alreadySubscribed: "You're already on the list!",
@@ -247,7 +247,7 @@ export const translations: Record<Locale, Translations> = {
         {
           title: "And five apps to juggle",
           description:
-            "One for inspiration, another to find the pieces you love, a third to buy or resell. None of them really knows you.",
+            "One for inspiration, another to find the pieces you love, a third to buy or resell second-hand. None of them really knows you.",
         },
       ],
       footnote:
