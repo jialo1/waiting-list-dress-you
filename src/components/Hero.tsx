@@ -6,10 +6,10 @@ import Image from "next/image";
 import { useTranslation } from "@/lib/LanguageProvider";
 
 const phoneScreens = [
-  { src: "/images/1-v2.png", alt: "Dress You" },
-  { src: "/images/2-v2.png", alt: "Dress You" },
-  { src: "/images/3-v2.png", alt: "Dress You" },
-  { src: "/images/4-v2.png", alt: "Dress You" },
+  { src: "/images/1-v3.png", alt: "Dress You" },
+  { src: "/images/2-v3.png", alt: "Dress You" },
+  { src: "/images/3-v3.png", alt: "Dress You" },
+  { src: "/images/4-v3.png", alt: "Dress You" },
 ];
 
 const fadeUp = {
