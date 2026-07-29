@@ -21,25 +21,21 @@ export type Translations = {
     errorConnection: string;
   };
   problem: {
-    eyebrow: string;
     title: string;
-    stats: ReadonlyArray<{ value: string; description: string }>;
+    blocks: ReadonlyArray<{ title: string; description: string }>;
     footnote: string;
   };
   features: {
-    eyebrow: string;
     title: string;
     items: ReadonlyArray<{ title: string; description: string }>;
   };
   ecosystem: {
-    eyebrow: string;
     title: string;
     subtitle: string;
     soonLabel: string;
     steps: ReadonlyArray<{ title: string; description: string; soon?: boolean }>;
   };
   showcase: {
-    eyebrow: string;
     title: string;
     subtitle: string;
     screens: ReadonlyArray<{ title: string; caption: string }>;
@@ -47,7 +43,6 @@ export type Translations = {
     diversityDescription: string;
   };
   vision: {
-    eyebrow: string;
     title: string;
     description: string;
     pillars: ReadonlyArray<{ title: string; description: string }>;
@@ -80,10 +75,10 @@ export const translations: Record<Locale, Translations> = {
     },
     hero: {
       badge: "Bientôt disponible",
-      title1: "Essaye tes vêtements",
-      title2: "sans les enfiler",
+      title1: "La nouvelle app mode",
+      title2: "qui réinvente ton quotidien",
       description:
-        "Crée ton avatar IA, ajoute tes pièces préférées et compose tes tenues en quelques secondes. Inscris-toi pour un accès anticipé.",
+        "Découvre, essaie, partage et revends tes vêtements depuis une seule app. Grâce à l'IA, visualise chaque tenue sur toi avant d'acheter, compose tes outfits en quelques secondes et rejoins une communauté qui t'inspire chaque jour.",
       placeholder: "ton@exemple.com",
       successTitle: "Tu es sur la liste !",
       alreadySubscribed: "Tu es déjà sur la liste !",
@@ -95,30 +90,23 @@ export const translations: Record<Locale, Translations> = {
       errorConnection: "Erreur de connexion. Réessaye.",
     },
     problem: {
-      eyebrow: "Le problème",
-      title: "S'habiller en ligne aujourd'hui, c'est compliqué.",
-      stats: [
+      title: "Marre d'acheter sans savoir si ça te va ?",
+      blocks: [
         {
-          value: "25–35 %",
+          title: "Commander sans pouvoir essayer",
           description:
-            "des articles mode sont retournés, le plus souvent parce que la taille ne va pas : on achète sans savoir si ça tombe bien.",
+            "Tu choisis une pièce sans savoir si c'est la bonne taille, ni ce que ça donne vraiment sur toi. Et impossible de voir ce qu'elle vaut avec les vêtements que tu as déjà dans ton dressing.",
         },
         {
-          value: "4 à 5",
+          title: "Et cinq apps à jongler",
           description:
-            "apps à jongler juste pour vivre sa vie mode. Aucune ne te connaît vraiment.",
-        },
-        {
-          value: "96 %",
-          description:
-            "de la Gen Z achète sur mobile : la mode est devenue une habitude quotidienne.",
+            "Une pour l'inspiration, une autre pour trouver les pièces que tu aimes, une troisième pour acheter ou revendre. Aucune ne te connaît vraiment.",
         },
       ],
       footnote:
-        "Dress You réunit tout ça en une seule app : essaie n'importe quelle pièce à ta vraie taille, avant de payer.",
+        "Dress You, c'est l'app mode du quotidien qui réunit tout : essaie n'importe quelle pièce à ta vraie taille, compose tes tenues, inspire-toi — et bientôt, revends ta seconde main.",
     },
     features: {
-      eyebrow: "Dress You",
       title: "Nos fonctionnalités",
       items: [
         {
@@ -143,7 +131,6 @@ export const translations: Record<Locale, Translations> = {
       ],
     },
     ecosystem: {
-      eyebrow: "L'écosystème",
       title: "Une seule app, du coup de cœur à la revente.",
       subtitle:
         "L'achat est épisodique, l'habitude est quotidienne. Chaque geste nourrit le suivant.",
@@ -173,7 +160,6 @@ export const translations: Record<Locale, Translations> = {
       ],
     },
     showcase: {
-      eyebrow: "L'application",
       title: "L'app, en vrai.",
       subtitle:
         "Du profil au feed : chaque écran tourne déjà en beta privée.",
@@ -184,12 +170,11 @@ export const translations: Record<Locale, Translations> = {
         { title: "Ton mannequin IA", caption: "Prêt à essayer" },
         { title: "Feed communauté", caption: "Partage & inspiration" },
       ],
-      diversityTitle: "Fidèle à chaque morphologie.",
+      diversityTitle: "Crée ton mannequin, super réaliste.",
       diversityDescription:
-        "Ton mannequin est généré à partir de tes mesures et de ta photo — pas d'un gabarit standard.",
+        "Généré à partir de ta photo et de tes mesures, pour un essayage conseillé à ta taille. Essaie toutes les pièces que tu veux sur toi, compose tes outfits depuis ton dressing, et bien plus encore.",
     },
     vision: {
-      eyebrow: "La vision",
       title: "Plus personne n'achètera un vêtement sans l'avoir vu sur soi.",
       description:
         "L'IA rend enfin la mode personnelle, instantanée et fidèle à la vraie taille de chacun. On en fait le nouveau standard.",
@@ -237,10 +222,10 @@ export const translations: Record<Locale, Translations> = {
     },
     hero: {
       badge: "Coming soon",
-      title1: "Try on your clothes",
-      title2: "without putting them on",
+      title1: "The new fashion app",
+      title2: "that reinvents your everyday",
       description:
-        "Create your AI avatar, add your favorite pieces and compose outfits in seconds. Sign up for early access.",
+        "Discover, try on, share and resell your clothes from a single app. With AI, see every outfit on yourself before you buy, put looks together in seconds and join a community that inspires you every day.",
       placeholder: "you@example.com",
       successTitle: "You're on the list!",
       alreadySubscribed: "You're already on the list!",
@@ -252,30 +237,23 @@ export const translations: Record<Locale, Translations> = {
       errorConnection: "Connection error. Try again.",
     },
     problem: {
-      eyebrow: "The problem",
-      title: "Shopping for clothes online is broken.",
-      stats: [
+      title: "Tired of buying without knowing if it fits?",
+      blocks: [
         {
-          value: "25–35%",
+          title: "Ordering without trying on",
           description:
-            "of fashion items get returned, most often because the size is wrong: you buy without knowing how it will fit.",
+            "You pick a piece without knowing whether it's the right size, or what it actually looks like on you. And there's no way to see how it works with the clothes already in your wardrobe.",
         },
         {
-          value: "4 to 5",
+          title: "And five apps to juggle",
           description:
-            "apps to juggle just to live your fashion life. None of them really knows you.",
-        },
-        {
-          value: "96%",
-          description:
-            "of Gen Z shops on mobile: fashion has become a daily, mobile habit.",
+            "One for inspiration, another to find the pieces you love, a third to buy or resell. None of them really knows you.",
         },
       ],
       footnote:
-        "Dress You brings it all into one app: try any piece on at your real size, before you pay.",
+        "Dress You is the everyday fashion app that brings it all together: try any piece on at your real size, build your outfits, get inspired — and soon, resell your second-hand.",
     },
     features: {
-      eyebrow: "Dress You",
       title: "Our features",
       items: [
         {
@@ -301,7 +279,6 @@ export const translations: Record<Locale, Translations> = {
       ],
     },
     ecosystem: {
-      eyebrow: "The ecosystem",
       title: "One app, from the first crush to the resale.",
       subtitle:
         "Buying is occasional, the habit is daily. Every step feeds the next one.",
@@ -331,7 +308,6 @@ export const translations: Record<Locale, Translations> = {
       ],
     },
     showcase: {
-      eyebrow: "The app",
       title: "The app, for real.",
       subtitle:
         "From profile to feed: every screen is already running in private beta.",
@@ -342,12 +318,11 @@ export const translations: Record<Locale, Translations> = {
         { title: "Your AI model", caption: "Ready to try on" },
         { title: "Community feed", caption: "Share & get inspired" },
       ],
-      diversityTitle: "True to every body.",
+      diversityTitle: "Build your model, strikingly real.",
       diversityDescription:
-        "Your model is generated from your own measurements and photo — not from a standard template.",
+        "Generated from your own photo and measurements, for a try-on with size guidance that matches you. Try on any piece you want, build outfits straight from your wardrobe, and much more.",
     },
     vision: {
-      eyebrow: "The vision",
       title: "Nobody will buy a garment again without seeing it on themselves.",
       description:
         "AI finally makes fashion personal, instant and true to everyone's real size. We're making it the new standard.",

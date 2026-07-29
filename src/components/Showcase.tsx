@@ -13,10 +13,10 @@ const flowScreens = [
 ];
 
 const avatarScreens = [
-  "/images/app/avatar-a.png",
-  "/images/app/avatar-b.png",
-  "/images/app/avatar-c.png",
-  "/images/app/avatar-d.png",
+  "/images/app/avatar-1.png",
+  "/images/app/avatar-2.png",
+  "/images/app/avatar-3.png",
+  "/images/app/avatar-4.png",
 ];
 
 const containerVariants = {
@@ -41,15 +41,6 @@ export default function Showcase() {
       <div className="mx-auto max-w-6xl px-6">
         <div className="mb-12 md:mb-16 lg:flex lg:items-end lg:justify-between lg:gap-10">
           <div>
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-              className="mb-4 text-[11px] uppercase tracking-[4px] text-warm-grey"
-            >
-              {t.showcase.eyebrow}
-            </motion.p>
             <motion.h2
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}

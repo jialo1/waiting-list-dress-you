@@ -23,15 +23,6 @@ export default function Vision() {
   return (
     <section id="vision" className="bg-charcoal py-20 sm:py-24 md:py-28">
       <div className="mx-auto max-w-6xl px-6">
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-          className="mb-4 text-[11px] uppercase tracking-[4px] text-warm-grey"
-        >
-          {t.vision.eyebrow}
-        </motion.p>
 
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
