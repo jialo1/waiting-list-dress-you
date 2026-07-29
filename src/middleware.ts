@@ -22,7 +22,9 @@ export function middleware(req: NextRequest) {
 
 export const config = {
   matcher: [
-    // tout, sauf les assets statiques et le logo affiché sur la page d'accès
-    "/((?!_next/static|_next/image|favicon.ico|icon.png|logo.png).*)",
+    // Tout, sauf les assets statiques.
+    // /images doit rester joignable : l'optimiseur d'images de Next refetche
+    // ces URLs en interne, sans cookie — les bloquer casse toutes les <Image>.
+    "/((?!_next/static|_next/image|images/|favicon.ico|icon.png|logo.png).*)",
   ],
 };
