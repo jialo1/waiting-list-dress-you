@@ -42,6 +42,13 @@ const icons = [
       <path d="M24 8c-6.5 4.5-6.5 27.5 0 32M24 8c6.5 4.5 6.5 27.5 0 32" />
     </svg>
   ),
+  (
+    <svg viewBox="0 0 48 48" fill="none" className="w-10 h-10" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" key="marketplace">
+      <path d="M10 18h28l-2.5 20h-23z" />
+      <path d="M18 18v-4a6 6 0 0112 0v4" />
+      <path d="M20 26l4-4 4 4M24 22v9" />
+    </svg>
+  ),
 ];
 
 const containerVariants = {
@@ -104,8 +111,13 @@ export default function Features() {
                   {icons[i]}
                 </span>
               </motion.div>
-              <h3 className="mb-2.5 w-full shrink-0 text-lg font-bold text-charcoal sm:mb-3">
+              <h3 className="mb-2.5 flex w-full shrink-0 flex-wrap items-center justify-center gap-2 text-lg font-bold text-charcoal sm:mb-3">
                 {feature.title}
+                {feature.soon && (
+                  <span className="rounded-full border border-medium-grey/30 px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-[1.5px] text-medium-grey">
+                    {t.features.soonLabel}
+                  </span>
+                )}
               </h3>
               <p className="w-full text-[15px] leading-relaxed text-medium-grey">
                 {feature.description}

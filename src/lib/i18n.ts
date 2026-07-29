@@ -27,7 +27,8 @@ export type Translations = {
   };
   features: {
     title: string;
-    items: ReadonlyArray<{ title: string; description: string }>;
+    soonLabel: string;
+    items: ReadonlyArray<{ title: string; description: string; soon?: boolean }>;
   };
   ecosystem: {
     title: string;
@@ -108,6 +109,7 @@ export const translations: Record<Locale, Translations> = {
     },
     features: {
       title: "Nos fonctionnalités",
+      soonLabel: "Bientôt",
       items: [
         {
           title: "Crée ton mannequin IA",
@@ -133,6 +135,12 @@ export const translations: Record<Locale, Translations> = {
           title: "Notre Feed",
           description:
             "Découvre un feed personnalisé grâce à un algorithme qui comprend tes goûts. Inspire-toi des looks de la communauté, partage les tiens et, bientôt, gagne des récompenses grâce à notre programme d'affiliation.",
+        },
+        {
+          title: "Marketplace de seconde main",
+          description:
+            "Achète et revends facilement tes vêtements au sein de la communauté Dress You. Profite de frais réduits par rapport aux autres plateformes, découvre des pièces qui correspondent à ton style grâce à notre algorithme et profite d'une expérience entièrement pensée pour rendre l'achat et la revente de seconde main plus simples, plus rapides et plus intelligents.",
+          soon: true,
         },
       ],
     },
@@ -261,6 +269,7 @@ export const translations: Record<Locale, Translations> = {
     },
     features: {
       title: "Our features",
+      soonLabel: "Soon",
       items: [
         {
           title: "Create your AI model",
@@ -286,6 +295,12 @@ export const translations: Record<Locale, Translations> = {
           title: "Our Feed",
           description:
             "Discover a personalized feed powered by an algorithm that understands your taste. Get inspired by the community's looks, share your own and, soon, earn rewards through our affiliate program.",
+        },
+        {
+          title: "Second-hand marketplace",
+          description:
+            "Buy and resell your clothes easily within the Dress You community. Enjoy lower fees than other platforms, find pieces that match your style thanks to our algorithm, and get an experience designed from the ground up to make buying and reselling second-hand simpler, faster and smarter.",
+          soon: true,
         },
       ],
     },
