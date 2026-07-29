@@ -29,6 +29,13 @@ const icons = [
     </svg>
   ),
   (
+    <svg viewBox="0 0 48 48" fill="none" className="w-10 h-10" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" key="stylist">
+      <path d="M18 12l2.2 5.8L26 20l-5.8 2.2L18 28l-2.2-5.8L10 20l5.8-2.2z" />
+      <path d="M33 26l1.3 3.4L38 31l-3.7 1.6L33 36l-1.3-3.4L28 31l3.7-1.6z" />
+      <path d="M31 9l.9 2.3L34 12l-2.1.8L31 15l-.9-2.2L28 12l2.1-.7z" opacity="0.6" />
+    </svg>
+  ),
+  (
     <svg viewBox="0 0 48 48" fill="none" className="w-10 h-10" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" key="feed">
       <circle cx="24" cy="24" r="16" />
       <path d="M8 24h32" />
@@ -79,7 +86,7 @@ export default function Features() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-80px" }}
-          className="grid grid-cols-1 items-stretch gap-6 sm:grid-cols-2 sm:gap-8 lg:grid-cols-4 lg:gap-8"
+          className="grid grid-cols-1 items-stretch gap-6 sm:grid-cols-2 sm:gap-8 lg:grid-cols-3 lg:gap-8"
         >
           {t.features.items.map((feature, i) => (
             <motion.div

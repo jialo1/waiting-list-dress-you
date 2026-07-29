@@ -110,23 +110,29 @@ export const translations: Record<Locale, Translations> = {
       title: "Nos fonctionnalités",
       items: [
         {
-          title: "Crée ton avatar IA",
-          description: "Crée ton avatar IA fidèle à ta morphologie en une photo.",
+          title: "Crée ton mannequin IA",
+          description:
+            "Crée un mannequin IA ultra-réaliste à partir d'une simple photo. Ajoute tes mensurations pour un essayage virtuel encore plus précis et des recommandations de taille personnalisées.",
         },
         {
-          title: "Ajoute tes pièces",
+          title: "Alimente ton e-dressing",
           description:
-            "Colle les liens de tes vêtements pour remplir ton e-dressing dans l'app : des tenues issues de ton dressing te sont proposées quand tu veux, selon ton mood.",
+            "Importe facilement les vêtements que tu possèdes grâce à leurs liens. Retrouve tout ton dressing au même endroit et compose des tenues selon ton humeur en quelques secondes.",
         },
         {
-          title: "Essaye & combine",
+          title: "Essaie & combine",
           description:
-            "Sur ton avatar, essaie des vêtements du e-commerce, compose des tenues et vois le rendu avant d'acheter.",
+            "Essaie virtuellement n'importe quel vêtement avant de l'acheter et visualise le rendu sur ton mannequin IA. Combine-le ensuite avec les pièces de ton e-dressing pour créer tes tenues parfaites.",
         },
         {
-          title: "Notre feed",
+          title: "Ton styliste IA",
           description:
-            "Découvre des looks, inspire-toi, partage les tiens avec tes liens et gagne de l'argent grâce à l'affiliation.",
+            "Ton styliste IA connaît ton style, ta morphologie et ton dressing. Il te conseille, crée des tenues pour chaque occasion, prépare tes valises et retrouve n'importe quel vêtement à partir d'une simple photo grâce à la reconnaissance d'articles.",
+        },
+        {
+          title: "Notre Feed",
+          description:
+            "Découvre un feed personnalisé grâce à un algorithme qui comprend tes goûts. Inspire-toi des looks de la communauté, partage les tiens et, bientôt, gagne des récompenses grâce à notre programme d'affiliation.",
         },
       ],
     },
@@ -257,24 +263,29 @@ export const translations: Record<Locale, Translations> = {
       title: "Our features",
       items: [
         {
-          title: "Create your AI avatar",
+          title: "Create your AI model",
           description:
-            "Build an AI avatar that matches your body from a single photo.",
+            "Build an ultra-realistic AI model from a single photo. Add your measurements for an even more accurate virtual try-on and personalized size recommendations.",
         },
         {
-          title: "Add your pieces",
+          title: "Fill your e-wardrobe",
           description:
-            "Paste links to your clothes to fill your digital wardrobe — outfit ideas built from your own pieces are surfaced whenever you want, matched to your mood.",
+            "Easily import the clothes you already own from their links. Find your whole wardrobe in one place and put outfits together to match your mood in seconds.",
         },
         {
           title: "Try on & combine",
           description:
-            "Try e-commerce items on your avatar, build outfits and see the result before you buy.",
+            "Virtually try on any garment before you buy it and see how it looks on your AI model. Then combine it with pieces from your e-wardrobe to build your perfect outfits.",
         },
         {
-          title: "Our feed",
+          title: "Your AI stylist",
           description:
-            "Discover looks, get inspired, share yours with your links and earn through affiliate.",
+            "Your AI stylist knows your style, your body and your wardrobe. It gives you advice, builds outfits for every occasion, packs your suitcase and finds any garment from a single photo thanks to item recognition.",
+        },
+        {
+          title: "Our Feed",
+          description:
+            "Discover a personalized feed powered by an algorithm that understands your taste. Get inspired by the community's looks, share your own and, soon, earn rewards through our affiliate program.",
         },
       ],
     },
