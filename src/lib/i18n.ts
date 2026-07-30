@@ -143,7 +143,7 @@ export const translations: Record<Locale, Translations> = {
         {
           title: "Marketplace de seconde main",
           description:
-            "Achète et revends facilement tes vêtements au sein de la communauté Dress You. Profite de frais réduits par rapport aux autres plateformes, découvre des pièces qui correspondent à ton style grâce à notre algorithme et profite d'une expérience entièrement pensée pour rendre l'achat et la revente de seconde main plus simples, plus rapides et plus intelligents.",
+            "Achète et revends facilement tes vêtements au sein de la communauté Dress You. Profite de frais réduits par rapport aux autres plateformes, découvre des pièces qui correspondent à ton style grâce à notre algorithme.",
           soon: true,
         },
       ],
@@ -229,7 +229,7 @@ export const translations: Record<Locale, Translations> = {
             "Les looks de la communauté, servis par un algorithme qui comprend tes goûts.",
           screens: [
             { title: "Feed communauté", caption: "Partage & inspiration" },
-            { title: "Les looks du jour", caption: "Chaque pièce est cliquable" },
+            { title: "La communauté", caption: "Likes, commentaires, pièces taggées" },
           ],
         },
       ],
@@ -348,7 +348,7 @@ export const translations: Record<Locale, Translations> = {
         {
           title: "Second-hand marketplace",
           description:
-            "Buy and resell your clothes easily within the Dress You community. Enjoy lower fees than other platforms, find pieces that match your style thanks to our algorithm, and get an experience designed from the ground up to make buying and reselling second-hand simpler, faster and smarter.",
+            "Buy and resell your clothes easily within the Dress You community. Enjoy lower fees than other platforms, find pieces that match your style thanks to our algorithm.",
           soon: true,
         },
       ],
@@ -434,7 +434,7 @@ export const translations: Record<Locale, Translations> = {
             "The community's looks, served by an algorithm that understands your taste.",
           screens: [
             { title: "Community feed", caption: "Share & get inspired" },
-            { title: "Today's looks", caption: "Every piece is clickable" },
+            { title: "The community", caption: "Likes, comments, tagged pieces" },
           ],
         },
       ],
