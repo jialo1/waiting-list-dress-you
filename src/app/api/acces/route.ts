@@ -1,9 +1,8 @@
 import { NextResponse } from "next/server";
-import { ACCESS_COOKIE, sitePassword } from "@/lib/access";
+import { ACCESS_COOKIE, isValidPassword, sitePasswords } from "@/lib/access";
 
 export async function POST(req: Request) {
-  const expected = sitePassword();
-  if (!expected) {
+  if (sitePasswords().length === 0) {
     return NextResponse.json({ error: "not_configured" }, { status: 500 });
   }
 
@@ -15,12 +14,12 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "bad_request" }, { status: 400 });
   }
 
-  if (password !== expected) {
+  if (!isValidPassword(password)) {
     return NextResponse.json({ error: "invalid" }, { status: 401 });
   }
 
   const res = NextResponse.json({ ok: true });
-  res.cookies.set(ACCESS_COOKIE, expected, {
+  res.cookies.set(ACCESS_COOKIE, password, {
     httpOnly: true,
     sameSite: "lax",
     secure: process.env.NODE_ENV === "production",

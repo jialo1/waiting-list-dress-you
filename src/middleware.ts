@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { ACCESS_COOKIE, sitePassword } from "@/lib/access";
+import { ACCESS_COOKIE, isValidPassword } from "@/lib/access";
 
 export function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
@@ -9,7 +9,7 @@ export function middleware(req: NextRequest) {
     return NextResponse.next();
   }
 
-  if (req.cookies.get(ACCESS_COOKIE)?.value === sitePassword()) {
+  if (isValidPassword(req.cookies.get(ACCESS_COOKIE)?.value ?? "")) {
     return NextResponse.next();
   }
 

@@ -1,9 +1,18 @@
 export const ACCESS_COOKIE = "dy_access";
 
 /**
- * Mot de passe d'accès au site.
- * Défini via la variable d'environnement SITE_PASSWORD sur Vercel.
+ * Mots de passe d'accès au site.
+ * Définis via SITE_PASSWORD sur Vercel, séparés par des virgules.
+ * Ex : SITE_PASSWORD="stationf,blast"
  */
-export function sitePassword(): string {
-  return process.env.SITE_PASSWORD ?? "";
+export function sitePasswords(): string[] {
+  return (process.env.SITE_PASSWORD ?? "")
+    .split(",")
+    .map((p) => p.trim())
+    .filter(Boolean);
+}
+
+export function isValidPassword(value: string): boolean {
+  if (!value) return false;
+  return sitePasswords().includes(value);
 }
