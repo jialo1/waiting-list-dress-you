@@ -39,7 +39,11 @@ export type Translations = {
   showcase: {
     title: string;
     subtitle: string;
-    screens: ReadonlyArray<{ title: string; caption: string }>;
+    chapters: ReadonlyArray<{
+      title: string;
+      description: string;
+      screens: ReadonlyArray<{ title: string; caption: string }>;
+    }>;
     diversityTitle: string;
     diversityDescription: string;
   };
@@ -176,13 +180,58 @@ export const translations: Record<Locale, Translations> = {
     showcase: {
       title: "L'app, en vrai.",
       subtitle:
-        "Du profil au feed : chaque écran tourne déjà en beta privée.",
-      screens: [
-        { title: "Créer un compte", caption: "En quelques secondes" },
-        { title: "Profil & mensurations", caption: "Ta vraie taille" },
-        { title: "Création du mannequin", caption: "Ton avatar IA" },
-        { title: "Ton mannequin IA", caption: "Prêt à essayer" },
-        { title: "Feed communauté", caption: "Partage & inspiration" },
+        "Du compte au feed, écran par écran : tout ce que tu vois tourne déjà en beta privée.",
+      chapters: [
+        {
+          title: "Ton mannequin IA",
+          description:
+            "Un compte, tes mensurations, une photo : ton mannequin est généré à ta morphologie réelle.",
+          screens: [
+            { title: "Créer un compte", caption: "En quelques secondes" },
+            { title: "Tes mensurations", caption: "4 mesures, puis les détails" },
+            { title: "Génération", caption: "À partir de tes photos" },
+            { title: "Ton mannequin", caption: "Prêt à essayer" },
+          ],
+        },
+        {
+          title: "Ton dressing",
+          description:
+            "Colle le lien d'une pièce : l'app analyse la page produit et l'ajoute à ton dressing.",
+          screens: [
+            { title: "Colle le lien", caption: "Zara, Dior, H&M..." },
+            { title: "L'article est reconnu", caption: "Photo, marque, catégorie" },
+            { title: "Ton dressing", caption: "Toutes tes pièces, une place" },
+          ],
+        },
+        {
+          title: "L'essayage",
+          description:
+            "Visuel pour voir le rendu, ou à la taille pour savoir quelle taille commander.",
+          screens: [
+            { title: "Visuel ou à la taille", caption: "Tu choisis" },
+            { title: "À ta taille", caption: "Taille S — confiance élevée" },
+            { title: "Sur chaque morphologie", caption: "Taille M — confortable" },
+            { title: "Une tenue entière", caption: "Composée depuis ton dressing" },
+          ],
+        },
+        {
+          title: "Ton styliste IA",
+          description:
+            "Il connaît ton dressing, te compose des tenues et retrouve une pièce à partir d'une photo.",
+          screens: [
+            { title: "Demande-lui", caption: "Une soirée, un conseil" },
+            { title: "Reconnaissance d'article", caption: "Où l'acheter & l'essayer" },
+          ],
+        },
+        {
+          title: "Le feed",
+          description:
+            "Les looks de la communauté, servis par un algorithme qui comprend tes goûts.",
+          screens: [
+            { title: "Feed communauté", caption: "Partage & inspiration" },
+            { title: "Les looks du jour", caption: "Chaque pièce est cliquable" },
+          ],
+        },
       ],
       diversityTitle: "Crée ton mannequin, super réaliste.",
       diversityDescription:
@@ -336,13 +385,58 @@ export const translations: Record<Locale, Translations> = {
     showcase: {
       title: "The app, for real.",
       subtitle:
-        "From profile to feed: every screen is already running in private beta.",
-      screens: [
-        { title: "Create an account", caption: "In a few seconds" },
-        { title: "Profile & measurements", caption: "Your real size" },
-        { title: "Building your model", caption: "Your AI avatar" },
-        { title: "Your AI model", caption: "Ready to try on" },
-        { title: "Community feed", caption: "Share & get inspired" },
+        "From sign-up to feed, screen by screen: everything here is already running in private beta.",
+      chapters: [
+        {
+          title: "Your AI model",
+          description:
+            "An account, your measurements, a photo: your model is built to your real body.",
+          screens: [
+            { title: "Create an account", caption: "In a few seconds" },
+            { title: "Your measurements", caption: "4 essentials, then the details" },
+            { title: "Generating", caption: "From your own photos" },
+            { title: "Your model", caption: "Ready to try on" },
+          ],
+        },
+        {
+          title: "Your wardrobe",
+          description:
+            "Paste a link: the app reads the product page and adds the piece to your wardrobe.",
+          screens: [
+            { title: "Paste the link", caption: "Zara, Dior, H&M..." },
+            { title: "The item is recognized", caption: "Photo, brand, category" },
+            { title: "Your wardrobe", caption: "Every piece, one place" },
+          ],
+        },
+        {
+          title: "The try-on",
+          description:
+            "Visual to see how it looks, or true-to-size to know which size to order.",
+          screens: [
+            { title: "Visual or true-to-size", caption: "Your call" },
+            { title: "At your size", caption: "Size S — high confidence" },
+            { title: "On every body", caption: "Size M — comfortable" },
+            { title: "A whole outfit", caption: "Built from your wardrobe" },
+          ],
+        },
+        {
+          title: "Your AI stylist",
+          description:
+            "It knows your wardrobe, builds outfits for you and finds a piece from a single photo.",
+          screens: [
+            { title: "Just ask", caption: "A night out, some advice" },
+            { title: "Item recognition", caption: "Where to buy it & try it on" },
+          ],
+        },
+        {
+          title: "The feed",
+          description:
+            "The community's looks, served by an algorithm that understands your taste.",
+          screens: [
+            { title: "Community feed", caption: "Share & get inspired" },
+            { title: "Today's looks", caption: "Every piece is clickable" },
+          ],
+        },
       ],
       diversityTitle: "Build your model, strikingly real.",
       diversityDescription:
